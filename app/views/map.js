@@ -389,7 +389,7 @@ var styles = StyleSheet.create({
     paddingHorizontal: ITEM_SPACING / 2 + ITEM_PREVIEW,
     position: 'absolute',
     top: 0,
-   	paddingTop: screen.height - ITEM_PREVIEW_HEIGHT - 64
+    paddingTop: screen.height - ITEM_PREVIEW_HEIGHT - 64
   },
   map: {
     backgroundColor: 'transparent',

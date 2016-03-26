@@ -33,53 +33,53 @@ var {
 
 
 var Login = React.createClass({
-	getProfile: function(){
-				// Create a graph request asking for friends with a callback to handle the response.
-		var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
-		  if (error) {
-		    alert('Error making request.');
-		  } else {
-		  	console.log('Setting State');
-		   	this.props.navigator.push({
-			title: 'Map',
-			component: MapOfEventsView,
-			passProps: {user: result}
-		});
-		  }
-		}, '/me?fields=name,picture.width(720).height(720)');
+    getProfile: function(){
+                // Create a graph request asking for friends with a callback to handle the response.
+        var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
+          if (error) {
+            alert('Error making request.');
+          } else {
+            console.log('Setting State');
+            this.props.navigator.push({
+            title: 'Map',
+            component: MapOfEventsView,
+            passProps: {user: result}
+        });
+          }
+        }, '/me?fields=name,picture.width(720).height(720)');
 
-		// Start the graph request.
-		fetchFriendsRequest.start();
-	},
-	  render: function() {
-	    return (
-	        <View style={styles.container}>
-	            <Image style={styles.bg} source={{uri: 'http://inspirationfeed.com/wp-content/uploads/2011/07/5843271754_4a80461e4b_o1.gif'}} />
-	            <View style={styles.header}>
-	                <Image style={styles.mark} source={{uri: 'http://i.imgur.com/da4G0Io.png'}} />
-	            </View>
-	            <View style={styles.inputs}>
-		            <View style={styles.signin}>
-			           <FBSDKLoginButton
-	          onLoginFinished={(error, result) => {
-	            if (error) {
-	              alert('Error logging in.');
-	            } else {
-	              if (result.isCancelled) {
-	                alert('Login cancelled.');
-	              } else {
-	                this.getProfile();
-	              }
-	            }
-	          }}
-	          onLogoutFinished={() => alert('Logged out.')}
-	          readPermissions={['user_events', 'public_profile', 'email']}
-	          publishPermissions={[]}/>
-		            </View>
-	            </View>
-	        </View>
-	    );
-	  }
+        // Start the graph request.
+        fetchFriendsRequest.start();
+    },
+      render: function() {
+        return (
+            <View style={styles.container}>
+                <Image style={styles.bg} source={{uri: 'http://inspirationfeed.com/wp-content/uploads/2011/07/5843271754_4a80461e4b_o1.gif'}} />
+                <View style={styles.header}>
+                    <Image style={styles.mark} source={{uri: 'http://i.imgur.com/da4G0Io.png'}} />
+                </View>
+                <View style={styles.inputs}>
+                    <View style={styles.signin}>
+                       <FBSDKLoginButton
+              onLoginFinished={(error, result) => {
+                if (error) {
+                  alert('Error logging in.');
+                } else {
+                  if (result.isCancelled) {
+                    alert('Login cancelled.');
+                  } else {
+                    this.getProfile();
+                  }
+                }
+              }}
+              onLogoutFinished={() => alert('Logged out.')}
+              readPermissions={['user_events', 'public_profile', 'email']}
+              publishPermissions={[]}/>
+                    </View>
+                </View>
+            </View>
+        );
+      }
 });
 
 var styles = StyleSheet.create({

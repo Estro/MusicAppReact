@@ -12,12 +12,12 @@ var MapView = require('./map');
 var ITEM_SPACING = 5;
 
 var RootView = React.createClass({
-	render() {
-	    return (
-	      <View style={styles.container}>
+    render() {
+        return (
+          <View style={styles.container}>
 
-	      </View>
-	    );
+          </View>
+        );
   }
 });
 
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   btnText:{
-  	marginTop: 6
+    marginTop: 6
   }
 });
 

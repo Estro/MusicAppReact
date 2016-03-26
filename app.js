@@ -18,9 +18,9 @@ var {
  *  Main App Navigation
  */
 var App = React.createClass({
-	renderScene(route, navigator) {
-  		return <route.component route={route} navigator={navigator} />;
-	},
+    renderScene(route, navigator) {
+        return <route.component route={route} navigator={navigator} />;
+    },
     render() {
 
     const initialRoute = {
@@ -34,7 +34,7 @@ var App = React.createClass({
           renderScene={this.renderScene}/>
       </View>
     );
-	}
+    }
 });
 
 module.exports = App;

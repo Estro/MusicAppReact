@@ -22,17 +22,17 @@ var {
  *  Main View
  */
 var ScreenView = React.createClass({
-	getInitialState: function(){
-		return {
-			user: this.props.route.passProps.user
-		};
-	},
+    getInitialState: function(){
+        return {
+            user: this.props.route.passProps.user
+        };
+    },
     render() {
         const rightButtonConfig = {
             title: 'Next',
             handler: () => this.props.navigator.push({
-        		component: MapOfEventsView,
-      		}),
+                component: MapOfEventsView,
+            }),
         };
 
         const titleConfig = {
@@ -40,36 +40,36 @@ var ScreenView = React.createClass({
         };
 
         return (
-		<View style={GlobalStyles.stage}>
-			<View style={GlobalStyles.contentContainer}>
-	        <TouchableHighlight
-		        underlayColor="#f4f4f4"
-		        style={styles.button}
-		        onPress={() => rightButtonConfig.handler()}>
-			        <Text style={styles.btnText}>
-			         View Map
-			        </Text>
-		        </TouchableHighlight>
-		         <Text>{this.state.user.name}</Text>
-		    </View>
-	    <NavigationBar
+        <View style={GlobalStyles.stage}>
+            <View style={GlobalStyles.contentContainer}>
+            <TouchableHighlight
+                underlayColor="#f4f4f4"
+                style={styles.button}
+                onPress={() => rightButtonConfig.handler()}>
+                    <Text style={styles.btnText}>
+                     View Map
+                    </Text>
+                </TouchableHighlight>
+                 <Text>{this.state.user.name}</Text>
+            </View>
+        <NavigationBar
         title={titleConfig}
         rightButton={rightButtonConfig} tintColor='transparent' />
-	      </View>
+          </View>
         );
     }
 });
 
 const styles = StyleSheet.create({
-	stage:{
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: 'pink',
-		paddingTop: 60
-	},
+    stage:{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'pink',
+        paddingTop: 60
+    },
     container: {
         flex: 1,
         flexDirection: 'row',
