@@ -5,12 +5,12 @@
   =============================== */
 
 // App Globals
-var React = require('react-native');
-var Dimensions = require('Dimensions');
-var windowSize = Dimensions.get('window');
-var MapOfEventsView = require('./root');
-var FBSDKLogin = require('react-native-fbsdklogin');
-var FBSDKCore = require('react-native-fbsdkcore');
+const React = require('react-native');
+const Dimensions = require('Dimensions');
+const windowSize = Dimensions.get('window');
+const MapOfEventsView = require('./root');
+const FBSDKLogin = require('react-native-fbsdklogin');
+const FBSDKCore = require('react-native-fbsdkcore');
 
 var {
   AppRegistry,
@@ -19,6 +19,7 @@ var {
   View,
   Text,
   TextInput,
+  AsyncStorage,
   Image
 } = React;
 
@@ -30,21 +31,36 @@ var {
   FBSDKGraphRequest,
 } = FBSDKCore;
 
-
+var {
+  FBSDKAccessToken,
+} = FBSDKCore;
 
 var Login = React.createClass({
+    getInitialState: function(){
+        FBSDKAccessToken.getCurrentAccessToken((token) => {
+          if (token.tokenString){
+            this.props.navigator.push({
+                title: 'Map',
+                component: MapOfEventsView
+            });
+          }
+        });
+
+        return null;
+    },
     getProfile: function(){
-                // Create a graph request asking for friends with a callback to handle the response.
+        var _this = this;
+        // Create a graph request asking for friends with a callback to handle the response.
         var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
           if (error) {
             alert('Error making request.');
           } else {
-            console.log('Setting State');
-            this.props.navigator.push({
-            title: 'Map',
-            component: MapOfEventsView,
-            passProps: {user: result}
-        });
+            AsyncStorage.setItem("user", JSON.stringify(result)).then(function(){
+                _this.props.navigator.push({
+                    title: 'Map',
+                    component: MapOfEventsView
+                });
+            }).done();
           }
         }, '/me?fields=name,picture.width(720).height(720)');
 

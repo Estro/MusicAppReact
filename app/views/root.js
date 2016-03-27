@@ -9,6 +9,8 @@ const React = require('react-native');
 const MapOfEventsView = require('./map');
 const NavigationBar = require('react-native-navbar');
 const GlobalStyles = require('../styles.ios.js');
+const FBSDKLogin = require('react-native-fbsdklogin');
+const FBSDKCore = require('react-native-fbsdkcore');
 
 var {
     View,
@@ -17,6 +19,10 @@ var {
     Text,
 } = React;
 
+var {
+  FBSDKLoginButton,
+} = FBSDKLogin;
+
 
 /**
  *  Main View
@@ -24,7 +30,7 @@ var {
 var ScreenView = React.createClass({
     getInitialState: function(){
         return {
-            user: this.props.route.passProps.user
+            user: []
         };
     },
     render() {
@@ -50,7 +56,9 @@ var ScreenView = React.createClass({
                      View Map
                     </Text>
                 </TouchableHighlight>
-                 <Text>{this.state.user.name}</Text>
+                 <FBSDKLoginButton
+              onLoginFinished={(error, result) => {}}
+              onLogoutFinished={() => alert('Logged out.')}/>
             </View>
         <NavigationBar
         title={titleConfig}

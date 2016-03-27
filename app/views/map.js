@@ -1,4 +1,16 @@
-var React = require('react-native');
+'use strict';
+
+/* ==============================
+ MAP View
+  =============================== */
+
+// View Globals
+
+const React = require('react-native');
+const MapView = require('react-native-maps');
+const PanController = require('../modules/pan');
+const PriceMarker = require('../modules/event-marker');
+const BREAKPOINT2 = 350;
 
 var {
   StyleSheet,
@@ -8,26 +20,19 @@ var {
   Animated,
 } = React;
 
-var MapView = require('react-native-maps');
-var PanController = require('../modules/pan');
-var PriceMarker = require('../modules/event-marker');
-
-var screen = Dimensions.get('window');
-
+const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
 const LATITUDE = 51.5034070;
 const LONGITUDE = -0.1275920;
 const LATITUDE_DELTA = 0.0322;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-var ITEM_SPACING = 5;
-var ITEM_PREVIEW = 1;
-var ITEM_WIDTH = screen.width - 2 * ITEM_SPACING - 2 * ITEM_PREVIEW;
-var SNAP_WIDTH = ITEM_WIDTH + ITEM_SPACING;
-var ITEM_PREVIEW_HEIGHT = 50;
-var SCALE_END = screen.width / ITEM_WIDTH;
-var BREAKPOINT1 = 246;
-var BREAKPOINT2 = 350;
+const ITEM_SPACING = 5;
+const ITEM_PREVIEW = 1;
+const ITEM_WIDTH = screen.width - 2 * ITEM_SPACING - 2 * ITEM_PREVIEW;
+const SNAP_WIDTH = ITEM_WIDTH + ITEM_SPACING;
+const ITEM_PREVIEW_HEIGHT = 50;
+const SCALE_END = screen.width / ITEM_WIDTH;
+const BREAKPOINT1 = 246;
 
 var ScreenView = React.createClass({
   getInitialState() {
