@@ -7,6 +7,7 @@
 // View Globals
 const React = require('react-native');
 const MapOfEventsView = require('./map');
+const LoginView = require('./login');
 const NavigationBar = require('react-native-navbar');
 const GlobalStyles = require('../styles.ios.js');
 const FBSDKLogin = require('react-native-fbsdklogin');
@@ -33,15 +34,18 @@ var ScreenView = React.createClass({
             user: []
         };
     },
+    logout() {
+         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[0]);
+    },
     render() {
-        const rightButtonConfig = {
+        var rightButtonConfig = {
             title: 'Next',
             handler: () => this.props.navigator.push({
                 component: MapOfEventsView,
             }),
         };
 
-        const titleConfig = {
+        var titleConfig = {
             title: 'Hello, world',
         };
 
@@ -58,7 +62,7 @@ var ScreenView = React.createClass({
                 </TouchableHighlight>
                  <FBSDKLoginButton
               onLoginFinished={(error, result) => {}}
-              onLogoutFinished={() => alert('Logged out.')}/>
+              onLogoutFinished={() => this.logout() }/>
             </View>
         <NavigationBar
         title={titleConfig}

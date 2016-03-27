@@ -38,7 +38,7 @@ var {
 var Login = React.createClass({
     getInitialState: function(){
         FBSDKAccessToken.getCurrentAccessToken((token) => {
-          if (token.tokenString){
+          if (token && token.tokenString){
             this.props.navigator.push({
                 title: 'Map',
                 component: MapOfEventsView
