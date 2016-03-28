@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   venue: {
     color: '#fff',
-    fontSize: 13,
+    fontSize: 9,
   },
   arrow: {
     backgroundColor: 'transparent',

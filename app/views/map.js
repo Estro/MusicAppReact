@@ -8,7 +8,10 @@
 
 const React = require('react-native');
 const MapView = require('react-native-maps');
+const Icon = require('react-native-vector-icons/Ionicons');
 const PanController = require('../modules/pan');
+const NavigationBar = require('react-native-navbar');
+const GlobalStyles = require('../styles.ios.js');
 const PriceMarker = require('../modules/event-marker');
 const BREAKPOINT2 = 350;
 
@@ -28,9 +31,9 @@ const LATITUDE_DELTA = 0.0322;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const ITEM_SPACING = 5;
 const ITEM_PREVIEW = 1;
-const ITEM_WIDTH = screen.width - 2 * ITEM_SPACING - 2 * ITEM_PREVIEW;
-const SNAP_WIDTH = ITEM_WIDTH + ITEM_SPACING;
-const ITEM_PREVIEW_HEIGHT = 50;
+const ITEM_WIDTH = screen.width;
+const SNAP_WIDTH = ITEM_WIDTH;
+const ITEM_PREVIEW_HEIGHT = 35;
 const SCALE_END = screen.width / ITEM_WIDTH;
 const BREAKPOINT1 = 246;
 
@@ -67,6 +70,9 @@ var ScreenView = React.createClass({
       {
         id: 0,
         amount: 99,
+        name: 'Easter Sunday Party at Tiger London',
+        venue: 'Tiger Tiger',
+        time: 'Starts at 13:30',
         coordinate: {
           latitude: LATITUDE,
           longitude: LONGITUDE,
@@ -75,11 +81,25 @@ var ScreenView = React.createClass({
       {
         id: 1,
         amount: 199,
+       	name: 'NTS Presents: Voice Of The Eagle at the ICA',
+       	venue: 'Bobs Bar',
+       	time: 'Starts at 18:00',
         coordinate: {
           latitude: LATITUDE + 0.004,
           longitude: LONGITUDE - 0.004,
         },
       },
+       {
+        id: 2,
+        amount: 99,
+        name: 'Easter Sunday Party at Tiger London',
+        venue: 'Tiger Tiger',
+        time: 'Starts at 13:30',
+        coordinate: {
+          latitude: LATITUDE + 0.006,
+          longitude: LONGITUDE - 0.006,
+        },
+      }
     ];
 
     const animations = markers.map((m, i)  => {
@@ -197,6 +217,10 @@ var ScreenView = React.createClass({
       }),
     };
   },
+  componentWillUnmount(){
+  	panX.removeAllListeners();
+  	panY.removeAllListeners();
+  },
 
   componentDidMount() {
     var { region, panX, panY, scrollX, markers } = this.state;
@@ -204,18 +228,18 @@ var ScreenView = React.createClass({
     this.setState({navigationBarHidden: false});
 
 
-     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var initialPosition = JSON.stringify(position);
-        this.setState({initialPosition});
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
-      this.setState({lastPosition});
-    });
+    //  navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     var initialPosition = JSON.stringify(position);
+    //     this.setState({initialPosition});
+    //   },
+    //   (error) => alert(error.message),
+    //   {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    // );
+    // this.watchID = navigator.geolocation.watchPosition((position) => {
+    //   var lastPosition = JSON.stringify(position);
+    //   this.setState({lastPosition});
+    // });
 
     panX.addListener(this.onPanXChange);
     panY.addListener(this.onPanYChange);
@@ -258,20 +282,21 @@ var ScreenView = React.createClass({
       if (!shouldBeMovable) {
         var { coordinate } = markers[index];
         region.stopAnimation();
+
         region.timing({
           latitude: scrollY.interpolate({
             inputRange: [0, BREAKPOINT1],
-            outputRange: [coordinate.latitude, coordinate.latitude - LATITUDE_DELTA * 0.5 * 0.375],
+            outputRange: [coordinate.latitude, coordinate.latitude - LATITUDE_DELTA / 3 * 0.375],
             extrapolate: 'clamp',
           }),
           latitudeDelta: scrollY.interpolate({
             inputRange: [0, BREAKPOINT1],
-            outputRange: [LATITUDE_DELTA, LATITUDE_DELTA * 0.5],
+            outputRange: [LATITUDE_DELTA, LATITUDE_DELTA / 3],
             extrapolate: 'clamp',
           }),
           longitudeDelta: scrollY.interpolate({
             inputRange: [0, BREAKPOINT1],
-            outputRange: [LONGITUDE_DELTA, LONGITUDE_DELTA * 0.5],
+            outputRange: [LONGITUDE_DELTA, LONGITUDE_DELTA / 3],
             extrapolate: 'clamp',
           }),
           duration: 0,
@@ -303,6 +328,17 @@ var ScreenView = React.createClass({
       markers,
       region,
     } = this.state;
+
+var rightButtonConfig = {
+        title: 'Next',
+        handler: () => this.props.navigator.push({
+            component: MapOfEventsView,
+        }),
+    };
+
+    var titleConfig = {
+        title: 'Around You',
+    };
 
     return (
       <View style={styles.container}>
@@ -369,12 +405,26 @@ var ScreenView = React.createClass({
                     ],
                   }]}
                 >
-                <Text>{this.state.initialPosition}</Text>
+                <View style={styles.detailsContainer}>
+                    <Text style={GlobalStyles.h5}>
+                    <Icon name="ios-location" size={12} color="#4FD2C2" style={GlobalStyles.inlineIcon}/>  {marker.venue}  <Icon name="ios-clock" size={12} color="#4FD2C2" style={GlobalStyles.inlineIcon}/>  {marker.time}</Text>
+                	<Text style={GlobalStyles.h2}>{marker.name}</Text>
+				</View>
+
+
+                <View style={styles.itemIcon}>
+                	<Icon name="ios-more-outline" size={35} color="#FFF" style={styles.icon}/>
+				</View>
                 </Animated.View>
               );
             })}
           </View>
         </PanController>
+        <NavigationBar
+        title={titleConfig}
+        rightButton={<Icon name="ios-settings-strong" size={25} color="#f36" style={GlobalStyles.navIconRight}/>}
+        leftButton={<Icon name="ios-arrow-back" size={25} color="#f36" style={GlobalStyles.navIconLeft} onPress={() => this.props.navigator.pop()} />}
+        tintColor='white' />
       </View>
     );
   },
@@ -391,7 +441,6 @@ var styles = StyleSheet.create({
   itemContainer: {
     backgroundColor: 'transparent',
     flexDirection: 'row',
-    paddingHorizontal: ITEM_SPACING / 2 + ITEM_PREVIEW,
     position: 'absolute',
     top: 0,
     paddingTop: screen.height - ITEM_PREVIEW_HEIGHT - 64
@@ -407,12 +456,27 @@ var styles = StyleSheet.create({
   item: {
     width: ITEM_WIDTH,
     height: screen.height + 2 * ITEM_PREVIEW_HEIGHT,
-    backgroundColor: '#007a87',
-    marginHorizontal: ITEM_SPACING / 2,
-    overflow: 'hidden',
-    borderRadius: 3,
-    borderColor: '#000',
+    backgroundColor: '#FFF',
   },
+  itemIcon: {
+	width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    backgroundColor: '#f36',
+    position: 'absolute',
+    top: -22,
+    right: 15,
+    flex:1,
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent:'center'
+	},
+	icon:{
+		backgroundColor: 'transparent'
+	},
+	detailsContainer:{
+		padding: 15,
+	}
 });
 
 module.exports = ScreenView;

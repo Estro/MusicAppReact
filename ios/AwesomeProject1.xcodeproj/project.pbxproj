@@ -26,6 +26,7 @@
 		5B7B57061CA73DD900826FEF /* libRCTFBSDKLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA49AA51CA7378700AB6A37 /* libRCTFBSDKLogin.a */; };
 		5B7B57081CA73E6700826FEF /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7B57071CA73E6700826FEF /* FBSDKCoreKit.framework */; };
 		5B7B570A1CA7417000826FEF /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7B57091CA7417000826FEF /* FBSDKLoginKit.framework */; };
+		5B7B57281CA8366500826FEF /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B7B57271CA8366500826FEF /* Ionicons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +154,7 @@
 		5B3014FF1CA59FB300CA5899 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		5B7B57071CA73E6700826FEF /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		5B7B57091CA7417000826FEF /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		5B7B57271CA8366500826FEF /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		5BA49A9A1CA7378100AB6A37 /* RCTFBSDKCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDKCore.xcodeproj; path = "../node_modules/react-native-fbsdkcore/RCTFBSDKCore.xcodeproj"; sourceTree = "<group>"; };
 		5BA49AA01CA7378700AB6A37 /* RCTFBSDKLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDKLogin.xcodeproj; path = "../node_modules/react-native-fbsdklogin/RCTFBSDKLogin.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5B7B57271CA8366500826FEF /* Ionicons.ttf */,
 				5BA49A351CA730CB00AB6A37 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* AwesomeProject1 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -616,6 +619,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				5B7B57281CA8366500826FEF /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
